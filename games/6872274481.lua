@@ -5438,7 +5438,7 @@ run(function()
 						end)
 					end)
 				end
-				task.wait(WaitTime)
+				task.wait(WaitTime.Value)
 			end
 	
 			bedwars.Client:GetNamespace('Inventory'):Get('SetObservedChest'):SendToServer(nil)
