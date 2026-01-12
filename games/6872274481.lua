@@ -5488,7 +5488,7 @@ run(function()
 		Min = 0,
 		Max = 1,
 		Default = 0.2,
-	end
+	})
 	Open = ChestSteal:CreateToggle({Name = 'GUI Check'})
 	Skywars = ChestSteal:CreateToggle({
 		Name = 'Only Skywars',
