@@ -5420,7 +5420,7 @@ run(function()
 	local Range
 	local Open
 	local Skywars
-	local WaitTime
+	local Delay
 	local Delays = {}
 	
 	local function lootChest(chest)
@@ -5438,7 +5438,7 @@ run(function()
 						end)
 					end)
 				end
-				task.wait(WaitTime.Value)
+				task.wait(Delay.Value)
 			end
 	
 			bedwars.Client:GetNamespace('Inventory'):Get('SetObservedChest'):SendToServer(nil)
@@ -5488,6 +5488,7 @@ run(function()
 		Min = 0,
 		Max = 1,
 		Default = 0.2,
+		Suffix = 'seconds'
 	})
 	Open = ChestSteal:CreateToggle({Name = 'GUI Check'})
 	Skywars = ChestSteal:CreateToggle({
