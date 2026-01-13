@@ -4854,20 +4854,20 @@ run(function()
 		local items = chest:GetChildren()
 		if #items <= 1 then return end
 	
-		SetObservedChest:FireServer(chest)
+		bedwars.Client:Get(remotes.SetObservedChest):SendToServer(chest)
 		task.wait(0.05)
 	
 		if WoolPriority.Enabled then
 			local wool = chest:FindFirstChild("wool_green")
 			if wool and wool:IsA("Accessory") then
 				pcall(function()
-					ChestGetItem:InvokeServer(chest, wool)
+					bedwars.Client:Get(remotes.GetChestItem):SendToServer(chest, wool)
 				end)
 				task.wait(Delay.Value)
 	
 				if WoolOnly.Enabled then
 					task.wait(0.1)
-					SetObservedChest:FireServer(nil)
+					bedwars.Client:Get(remotes.SetObservedChest):SendToServer(nil)
 					return
 				end
 			end
@@ -4876,14 +4876,14 @@ run(function()
 		for _, item in ipairs(items) do
 			if item:IsA("Accessory") then
 				pcall(function()
-					ChestGetItem:InvokeServer(chest, item)
+					bedwars.Client:Get(remotes.GetChestItem):SendToServer(chest, item)
 				end)
 				task.wait(Delay.Value)
 			end
 		end
 	
 		task.wait(0.15)
-		SetObservedChest:FireServer(nil)
+		bedwars.Client:Get(remotes.SetObservedChest):SendToServer(nil)
 	end
 
 	ChestSteal = vape.Categories.World:CreateModule({
