@@ -40,7 +40,6 @@ local GUI_NAME = safeReadFile('newvape/profiles/gui.txt') or 'new'
 -- ========================
 
 local vape
-local queue_on_teleport = queue_on_teleport or function() end
 local cloneref = cloneref or function(o) return o end
 local playersService = cloneref(game:GetService('Players'))
 
@@ -127,7 +126,6 @@ local function finishLoading()
 		]]
 
 		vape:Save()
-		queue_on_teleport(script)
 	end))
 
 	if not shared.vapereload
