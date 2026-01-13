@@ -4879,6 +4879,7 @@ run(function()
 			if item:IsA("Accessory") and item.Name ~= "wool_green" then
 				pcall(function()
 					bedwars.Client:GetNamespace("Inventory"):Get("ChestGetItem"):CallServer(chest, item)
+					bedwars.Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(chest)
 				end)
 				task.wait(Delay.Value)
 			end
