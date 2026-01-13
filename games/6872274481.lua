@@ -4854,37 +4854,39 @@ run(function()
 		local items = chest:GetChildren()
 		if #items <= 1 then return end
 	
-		bedwars.Client:Get(remotes.SetObservedChest):SendToServer(chest)
+		bedwars.Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(chest)
 		task.wait(0.05)
 	
 		if WoolPriority.Enabled then
 			local wool = chest:FindFirstChild("wool_green")
 			if wool and wool:IsA("Accessory") then
 				pcall(function()
-					bedwars.Client:Get(remotes.GetChestItem):SendToServer(chest, wool)
+					bedwars.Client:GetNamespace("Inventory"):Get("ChestGetItem"):CallServer(chest, wool)
 				end)
 				task.wait(Delay.Value)
 	
 				if WoolOnly.Enabled then
 					task.wait(0.1)
-					bedwars.Client:Get(remotes.SetObservedChest):SendToServer(nil)
+					bedwars.Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(nil)
 					return
 				end
 			end
 		end
 	
+		items = chest:GetChildren()
+	
 		for _, item in ipairs(items) do
-			if item:IsA("Accessory") then
+			if item:IsA("Accessory") and item.Name ~= "wool_green" then
 				pcall(function()
-					bedwars.Client:Get(remotes.GetChestItem):SendToServer(chest, item)
+					bedwars.Client:GetNamespace("Inventory"):Get("ChestGetItem"):CallServer(chest, item)
 				end)
 				task.wait(Delay.Value)
 			end
 		end
 	
 		task.wait(0.15)
-		bedwars.Client:Get(remotes.SetObservedChest):SendToServer(nil)
-	end
+		bedwars.Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(nil)
+end
 
 	ChestSteal = vape.Categories.World:CreateModule({
 		Name = "ChestSteal",
