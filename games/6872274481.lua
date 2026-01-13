@@ -4855,15 +4855,21 @@ run(function()
 		if #items <= 1 then return end
 	
 		SetObservedChest:FireServer(chest)
-	
 		task.wait(0.05)
-
-		if chest:FindFirstChild("wool_green") and WoolPriority.Enabled then
-			ChestGetItem:InvokeServer(chest, chest:FindFirstChild("wool_green"))
-			if WoolOnly.Enabled then
-				SetObservedChest:FireServer(chest)
-				SetObservedChest:FireServer(nil)
-				return
+	
+		if WoolPriority.Enabled then
+			local wool = chest:FindFirstChild("wool_green")
+			if wool and wool:IsA("Accessory") then
+				pcall(function()
+					ChestGetItem:InvokeServer(chest, wool)
+				end)
+				task.wait(Delay.Value)
+	
+				if WoolOnly.Enabled then
+					task.wait(0.1)
+					SetObservedChest:FireServer(nil)
+					return
+				end
 			end
 		end
 	
@@ -4876,9 +4882,7 @@ run(function()
 			end
 		end
 	
-		-- KEEP IT OPEN A BIT SO UI SYNC DOESN'T LAG
 		task.wait(0.15)
-	
 		SetObservedChest:FireServer(nil)
 	end
 
