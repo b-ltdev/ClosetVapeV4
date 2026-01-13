@@ -4841,31 +4841,33 @@ run(function()
 
 	local function lootChest(chestModel)
 		if not chestModel then return end
-
+	
 		local chestValue = chestModel:FindFirstChild("ChestFolderValue")
 		local chest = chestValue and chestValue.Value
 		if not chest then return end
-
+	
 		if (Delays[chest] or 0) > tick() then return end
 		Delays[chest] = tick() + Delay.Value
-
+	
 		local items = chest:GetChildren()
 		if #items <= 1 then return end
-
+	
 		SetObservedChest:FireServer(chest)
-
+	
+		task.wait(0.05)
+	
 		for _, item in ipairs(items) do
-			if item:IsA("Tool") or item:IsA("Accessory") or item:IsA("Model") then
-				task.spawn(function()
-					pcall(function()
-						ChestGetItem:InvokeServer(chest, item)
-						SetObservedChest:FireServer(chest)
-					end)
+			if iitem:IsA("Accessory") then
+				pcall(function()
+					ChestGetItem:InvokeServer(chest, item)
 				end)
 				task.wait(Delay.Value)
 			end
 		end
-
+	
+		-- KEEP IT OPEN A BIT SO UI SYNC DOESN'T LAG
+		task.wait(0.15)
+	
 		SetObservedChest:FireServer(nil)
 	end
 
