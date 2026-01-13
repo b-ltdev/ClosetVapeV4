@@ -4853,6 +4853,8 @@ run(function()
 	
 		local items = chest:GetChildren()
 		if #items <= 1 then return end
+
+		local FoundWool = false
 	
 		bedwars.Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(chest)
 		task.wait(0.05)
@@ -4866,6 +4868,7 @@ run(function()
 				task.wait(Delay.Value)
 	
 				if WoolOnly.Enabled then
+					FoundWool = true
 					task.wait(0.1)
 					bedwars.Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(nil)
 					return
@@ -4874,19 +4877,20 @@ run(function()
 		end
 	
 		items = chest:GetChildren()
-	
-		for _, item in ipairs(items) do
-			if item:IsA("Accessory") and item.Name ~= "wool_green" then
-				pcall(function()
-					bedwars.Client:GetNamespace("Inventory"):Get("ChestGetItem"):CallServer(chest, item)
-					bedwars.Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(chest)
-				end)
-				task.wait(Delay.Value)
+		if not FoundWool then
+			for _, item in ipairs(items) do
+				if item:IsA("Accessory") and item.Name ~= "wool_green" then
+					pcall(function()
+						bedwars.Client:GetNamespace("Inventory"):Get("ChestGetItem"):CallServer(chest, item)
+						bedwars.Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(chest)
+					end)
+					task.wait(Delay.Value)
+				end
 			end
+		
+			task.wait(0.15)
+			bedwars.Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(nil)
 		end
-	
-		task.wait(0.15)
-		bedwars.Client:GetNamespace("Inventory"):Get("SetObservedChest"):SendToServer(nil)
 end
 
 	ChestSteal = vape.Categories.World:CreateModule({
