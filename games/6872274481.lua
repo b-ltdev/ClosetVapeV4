@@ -4808,6 +4808,8 @@ run(function()
 	local Range
 	local Delay
 	local Skywars
+	local WoolPriority
+	local WoolOnly
 	local Delays = {}
 
 	local Players = game:GetService("Players")
@@ -4855,9 +4857,18 @@ run(function()
 		SetObservedChest:FireServer(chest)
 	
 		task.wait(0.05)
+
+		if chest:FindFirstChild("wool_green") and WoolPriority.Enabled then
+			ChestGetItem:InvokeServer(chest, chest:FindFirstChild("wool_green"))
+			if WoolOnly.Enabled then
+				SetObservedChest:FireServer(chest)
+				SetObservedChest:FireServer(nil)
+				return
+			end
+		end
 	
 		for _, item in ipairs(items) do
-			if iitem:IsA("Accessory") then
+			if item:IsA("Accessory") then
 				pcall(function()
 					ChestGetItem:InvokeServer(chest, item)
 				end)
@@ -4912,6 +4923,28 @@ run(function()
 		Max = 0.5,
 		Default = 0.15,
 		Suffix = "seconds"
+	})
+
+	WoolPriority = ChestSteal:CreateToggle({
+		Name = "Wool Priority",
+		Default = false,
+		Function = function()
+			if ChestSteal.Enabled then
+				ChestSteal:Toggle()
+				ChestSteal:Toggle()
+			end
+		end
+	})
+
+	WoolOnly = ChestSteal:CreateToggle({
+		Name = "Wool Only (starter chests)",
+		Default = false,
+		Function = function()
+			if ChestSteal.Enabled then
+				ChestSteal:Toggle()
+				ChestSteal:Toggle()
+			end
+		end
 	})
 
 	Skywars = ChestSteal:CreateToggle({
