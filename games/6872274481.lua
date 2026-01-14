@@ -3776,7 +3776,7 @@ run(function()
 		Name = 'AutoNazar',
 		Function = function(callback)
 			if callback then
-				if lplr.Character:GetAttribute('Health') <= MaximumHealth.Value then
+				if lplr.Character:GetAttribute('Health') <= tostring(MaximumHealth.Value) then
 					bedwars.AbilityController:useAbility('consume_life_foce')
 				end
 			end
