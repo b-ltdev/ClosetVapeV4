@@ -3767,7 +3767,31 @@ run(function()
 		})
 	end
 end)
-	
+
+run(function()
+	local AutoNazarHeal
+	local MaximumHealth
+
+	AutoNazarHeal = vape.Categories.Utility:CreateModule({
+		Name = 'AutoNazar',
+		Function = function(callback)
+			if callback then
+				if lplr.Character:GetAttribute('Health') <= MaximumHealth.Value then
+					bedwars.AbilityController:useAbility('consume_life_foce')
+				end
+			end
+		end
+	})
+
+	MaximumHealth = MaximumHealth:CreateSlider({
+		Name = 'MaximumHealth',
+		Minimum = 1,
+		Maximum = 72,
+		Default = 50,
+		Suffix = 'Health'
+	})
+end)
+
 run(function()
 	local AutoPearl
 	local rayCheck = RaycastParams.new()
