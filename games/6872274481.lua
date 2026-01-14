@@ -3777,8 +3777,8 @@ run(function()
 		Function = function(callback)
 			if callback then
 				if lplr.Character:GetAttribute('Health') <= MaximumHealth.Value then
-					if bedwars.AbilityController:canUseAbility('consume_life_force') then
-						bedwars.AbilityController:useAbility('consume_life_force')
+					if bedwars.AbilityController:canUseAbility('consume_life_foce') then
+						bedwars.AbilityController:useAbility('consume_life_foce')
 					end
 				end
 			end
