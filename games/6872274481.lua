@@ -3776,7 +3776,7 @@ run(function()
 		Name = 'AutoNazar',
 		Function = function(callback)
 			if callback then
-				if tostring(lplr.Character:GetAttribute('Health')) <= tostring(MaximumHealth.Value) then
+				if lplr.Character:GetAttribute('Health') <= MaximumHealth.Value then
 					bedwars.AbilityController:useAbility('consume_life_foce')
 				end
 			end
@@ -3785,8 +3785,8 @@ run(function()
 
 	MaximumHealth = AutoNazarHeal:CreateSlider({
 		Name = 'MaximumHealth',
-		Minimum = 1,
-		Maximum = 72,
+		Min = 1,
+		Max = 72,
 		Default = 50,
 		Suffix = 'Health'
 	})
