@@ -3783,7 +3783,7 @@ run(function()
 		end
 	})
 
-	MaximumHealth = MaximumHealth:CreateSlider({
+	MaximumHealth = AutoNazarHeal:CreateSlider({
 		Name = 'MaximumHealth',
 		Minimum = 1,
 		Maximum = 72,
