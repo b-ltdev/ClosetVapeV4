@@ -3776,11 +3776,14 @@ run(function()
 		Name = 'AutoNazar',
 		Function = function(callback)
 			if callback then
-				if lplr.Character:GetAttribute('Health') <= MaximumHealth.Value then
-					-- if bedwars.AbilityController:canUseAbility('consume_life_foce') then
-						bedwars.AbilityController:useAbility('consume_life_foce')
-					-- end
-				end
+				AutoNazarHeal:Clean(runService.Heartbeat:Connect(function()
+				    if not entitylib.isAlive then return end
+				
+				    local hum = lplr.Character and lplr.Character:FindFirstChild("Humanoid")
+				    if hum and hum.Health <= MaximumHealth.Value then
+				        bedwars.AbilityController:useAbility("consume_life_foce")
+				    end
+				end))
 			end
 		end
 	})
