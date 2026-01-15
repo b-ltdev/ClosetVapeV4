@@ -2626,7 +2626,25 @@ run(function()
 	})
 	Face = Killaura:CreateToggle({Name = 'Face target'})
 end)
-	
+
+run(function()
+	local QueueOnTeleport
+	local HasQueuedAlready
+	QueueOnTeleport = vape.Categories.Utility:CreateModule({
+		Name = 'LoadAfterTeleport',
+		Function = function(callback)
+			if callback then
+				if not HasQueuedAlready then																																										
+					queue_on_teleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/b-ltdev/ClosetVapeV4/main/NewMainScript.lua", true))()')
+					HasQueuedAlready = true
+				end
+			else
+				notif('LoadAfterTeleport', 'You have already queued it for teleport, but it will not load after the next teleport unless you turn it on again.', 30, 'warning')																																											
+			end
+		end
+	})
+end)
+																																											
 run(function()
 	local Mode
 	local Value
